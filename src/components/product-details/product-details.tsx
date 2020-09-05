@@ -6,6 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useParams } from "react-router-dom";
 
 const ProductDetails = ({ products, setProducts }: any) => {
+
+    // const search = useLocation().search;
+    // const name = new URLSearchParams(search).get('name');
+
     let { id } = useParams();
 
     const productDetails = products.filter((product: any) => {
@@ -19,9 +23,6 @@ const ProductDetails = ({ products, setProducts }: any) => {
     const quantityChange = (type: any) => {
         ProductService.quantityChange(type, setProducts, products, productDetails);
     };
-
-    // const search = useLocation().search;
-    // const name = new URLSearchParams(search).get('name');
 
     return (
         <>
@@ -64,8 +65,6 @@ const ProductDetails = ({ products, setProducts }: any) => {
                                         </> :
                                         <button className="add-to-cart mt-2" onClick={addToCart}>Add to Cart</button>
                                 }
-
-
 
                                 <Link to="/cart">
                                     <button className="goto-cart">Goto Cart</button >

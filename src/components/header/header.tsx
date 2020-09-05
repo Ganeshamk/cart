@@ -6,6 +6,7 @@ import './header.css';
 import { Link } from "react-router-dom";
 
 const Header = ({ searchText, setSearchText }: any) => {
+
     const searchTextEventHandler = (e: any) => {
         if (e) {
             setSearchText(e.target.value);
