@@ -60,7 +60,7 @@ function App() {
                 </Route>
 
                 <Route path="/products">
-                  <Products products={products} setProducts={setProducts} />
+                  <Products searcProducts={searcProducts} products={products} setProducts={setProducts} />
                 </Route>
 
                 <Route path="/product-details/:id">
