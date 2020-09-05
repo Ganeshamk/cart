@@ -1,0 +1,35 @@
+.company-name {
+    line-height: 30px;
+    margin: 10px;
+    margin-left: 10px;
+    font-size: 25px;
+    color: #fefefe;
+    text-shadow: 1px 1px #000;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.search-block {
+    position: relative;
+}
+
+.clear-icon {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.product-search-box {
+    padding: 20px !important;
+    width: 500px !important;
+}
+
+@media screen and (max-width:878px) {
+    .product-search-box {
+        padding: 20px !important;
+        width: 100% !important;
+    }
+}
