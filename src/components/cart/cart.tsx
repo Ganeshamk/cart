@@ -85,4 +85,5 @@ const Cart = ({ products, setProducts }: any) => {
     );
 };
 
+
 export default Cart;
