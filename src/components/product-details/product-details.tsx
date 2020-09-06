@@ -31,13 +31,13 @@ const ProductDetails = ({ products, setProducts }: any) => {
                     <div className="card-header text-warning text-center"><strong>Product Details</strong></div>
                     <div className="card-body">
                         <div className="row p-0 m-0">
-                            <div className="col">
+                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <div className="col-12 p-0 m-0 text-center product-details-img-block">
                                     <img className="product-img" alt="img" src={productDetails.imgUrl} />
                                 </div>
                             </div>
 
-                            <div className="col">
+                            <div className="col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                 <label className="col-12 p-0 m-0 text-primary"><strong>Name: </strong>{productDetails.name}</label>
                                 <label className="col-12 p-0 m-0 text-primary"><strong>Price: </strong>{ProductService.currencyFormat(productDetails.price)}</label>
                                 <label className="col-12 p-0 m-0 text-primary"><strong>Category: </strong>{productDetails.category}</label>
@@ -55,7 +55,7 @@ const ProductDetails = ({ products, setProducts }: any) => {
                                                 </button>
                                             </div>
                                             <div className="col-12 p-0 m-0">
-                                                <label >
+                                                <label className="">
                                                     <strong>Total Aomunt:</strong>
                                                     <span className="text-success">
                                                         {ProductService.currencyFormat(productDetails.quantity * productDetails.price)}
@@ -63,7 +63,7 @@ const ProductDetails = ({ products, setProducts }: any) => {
                                                 </label>
                                             </div >
                                         </> :
-                                        <button className="add-to-cart mt-2" onClick={addToCart}>Add to Cart</button>
+                                        <button className="col-12 add-to-cart mt-2" onClick={addToCart}>Add to Cart</button>
                                 }
 
                                 <Link to="/cart">
