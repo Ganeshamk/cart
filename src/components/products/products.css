@@ -1,4 +1,29 @@
 .products-block {
-    width: 90%;
-    margin: auto;
+    background: #ffffff;
+}
+
+.filter-block {
+    background: #ffffff;
+    position: sticky !important;
+    top: 90px;
+}
+
+.products-title {
+    font-size: 25px;
+}
+
+.categories {
+    outline: none !important;
+}
+
+.category {
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.category>.checkbox-inline {
+    margin: 0 20px !important;
+}
+
+.category:last-child {
+    border-bottom: none !important;
 }

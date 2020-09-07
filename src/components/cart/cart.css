@@ -18,6 +18,12 @@
     transition: transform .5s ease;
 }
 
+@media screen and (max-width: 575px) {
+    .product-cart-img {
+        height: 300px;
+    }
+}
+
 .product-img-block {
     overflow: hidden;
     cursor: pointer;

@@ -23,21 +23,45 @@ function App() {
     return searchText;
   });
 
+  const CategoriesReducer = ((state: any, categories: any) => {
+    return categories;
+  });
+
+  const CategoriesDataReducer = ((state: any, categoriesData: any) => {
+    return categoriesData;
+  });
+
+  const filterdCategories: any[] = [];
+  ProductService.getProducts().forEach((product: any) => {
+    if (filterdCategories.findIndex((category: any) => category.name === product.category) < 0) {
+      filterdCategories.push({
+        name: product.category,
+        status: false
+      });
+    }
+  });
+
   const [products, setProducts] = useReducer(ProductsReducer, ProductService.getProducts());
   const [searcProducts, setSearcProducts] = useReducer(ProductsReducer, []);
-
+  const [categories, setCategories] = useReducer(CategoriesReducer, []);
   const [searchText, setSearchText] = useReducer(SearchReducer, '');
+  const [categoriesData, setCategoriesData] = useReducer(CategoriesDataReducer, filterdCategories);
 
   useEffect(() => {
-    searchHandler(searchText ? 'SEACHED_PRODUCTS' : 'ALL_PRODUCTS');
-  }, [searchText, products]);
+    searchHandler(searchText || categories.length > 0 ? 'FILTERED_PRODUCTS' : 'ALL_PRODUCTS');
+  }, [searchText, products, categories]);
 
   const searchHandler = (condition: any) => {
     switch (condition) {
       case 'ALL_PRODUCTS': setSearcProducts(products);
         break;
 
-      case 'SEACHED_PRODUCTS': setSearcProducts(products.filter((product: any) => {
+      case 'FILTERED_PRODUCTS': setSearcProducts(products.filter((product: any) => {
+        if (categories && categories.findIndex((item: any) => {
+          return item.name === product.category;
+        }) < 0) {
+          return;
+        }
         return product.name.toLowerCase().includes(searchText.toLowerCase());
       }));
         break;
@@ -56,11 +80,11 @@ function App() {
             <React.Fragment>
               <div className="content">
                 <Route exact path="/">
-                  <Products searcProducts={searcProducts} products={products} setProducts={setProducts} />
+                  <Products categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searcProducts={searcProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
                 </Route>
 
                 <Route path="/products">
-                  <Products searcProducts={searcProducts} products={products} setProducts={setProducts} />
+                  <Products categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searcProducts={searcProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
                 </Route>
 
                 <Route path="/product-details/:id">
