@@ -49,9 +49,9 @@ const Products = ({ sort, setSort, categoriesData, setCategoriesData, setCategor
             {
                 searchProducts && searchProducts.length > 0 ?
                     <div className="row p-1 m-0">
-                        <div className="col-12 text-right p-2 m-0">
-                            <Accordion as={Button} className="categories" onClick={() => setSort(!sort)}>
-                                SortBy <FontAwesomeIcon icon={sort ? faArrowUp : faArrowDown} />
+                        <div className="col-12 text-right pl-2 pr-2 pt- pb-0 m-0">
+                            <Accordion as={Button} className="categories" onClick={() => setSort(sort === 'desc' || sort === '' ? 'asc' : sort === 'asc' ? 'desc' : '')}>
+                                SortBy {sort ? <FontAwesomeIcon icon={sort === 'asc' ? faArrowUp : faArrowDown} /> : ''}
                             </Accordion>
                         </div>
 
@@ -59,8 +59,8 @@ const Products = ({ sort, setSort, categoriesData, setCategoriesData, setCategor
                             <div className="col-12 p-2 m-0 filter-block">
                                 <Accordion defaultActiveKey="0">
                                     <Card>
-                                        <Card.Header>
-                                            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="categories">
+                                        <Card.Header className="p-2 m-0 text-center">
+                                            <Accordion.Toggle as={Button} variant="link" eventKey="0" className="categories p-0 m-0">
                                                 Categories
                                             </Accordion.Toggle>
                                         </Card.Header>
