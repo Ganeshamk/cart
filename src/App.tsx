@@ -45,7 +45,7 @@ function App() {
   const [searchProducts, setSearcProducts] = useReducer(ProductsReducer, []);
   const [categories, setCategories] = useReducer(CategoriesReducer, []);
   const [searchText, setSearchText] = useReducer(SearchReducer, '');
-  const [sort, setSort] = useReducer(SearchReducer, '');
+  const [sort, setSort] = useReducer(SearchReducer, true);
 
   const [categoriesData, setCategoriesData] = useReducer(CategoriesDataReducer, filterdCategories);
 
