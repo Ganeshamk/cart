@@ -4,8 +4,9 @@ import ProductsList from '../product-list/product-list';
 import { Form, FormControl, Accordion, Card, Button } from 'react-bootstrap';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-const Products = ({ categoriesData, setCategoriesData, setCategories, searcProducts, products, setProducts, searchText, setSearchText }: any) => {
+const Products = ({ sort, setSort, categoriesData, setCategoriesData, setCategories, searchProducts, products, setProducts, searchText, setSearchText }: any) => {
 
     const searchTextEventHandler = (e: any) => {
         if (e) {
@@ -46,8 +47,14 @@ const Products = ({ categoriesData, setCategoriesData, setCategories, searcProdu
             </div>
 
             {
-                searcProducts && searcProducts.length > 0 ?
+                searchProducts && searchProducts.length > 0 ?
                     <div className="row p-1 m-0">
+                        <div className="col-12 text-right p-2 m-0">
+                            <Accordion as={Button} className="categories" onClick={() => setSort(!sort)}>
+                                SortBy <FontAwesomeIcon icon={sort ? faArrowUp : faArrowDown} />
+                            </Accordion>
+                        </div>
+
                         <div className="col-sm-12 col-md-4 col-lg-3 col-xl-3 p-2 m-0">
                             <div className="col-12 p-2 m-0 filter-block">
                                 <Accordion defaultActiveKey="0">
@@ -60,7 +67,7 @@ const Products = ({ categoriesData, setCategoriesData, setCategories, searcProdu
                                         <Accordion.Collapse eventKey="0">
                                             <Card.Body className="p-0 m-0">
                                                 {
-                                                    categoriesData.map(category => {
+                                                    categoriesData.map((category: any) => {
                                                         return <div key={category?.name} className="col-12 category p-2 m-0">
                                                             <label className="checkbox-inline">
                                                                 <input type="checkbox" className="form-check-input"
@@ -79,7 +86,7 @@ const Products = ({ categoriesData, setCategoriesData, setCategories, searcProdu
                         </div>
                         <div className="col-sm-12 col-md-8 col-lg-9 col-xl-9 p-2 m-0">
                             <div className="col-12 p-2 m-0 products-block">
-                                <ProductsList searcProducts={searcProducts} products={products} setProducts={setProducts} />
+                                <ProductsList searchProducts={searchProducts} products={products} setProducts={setProducts} />
                             </div>
                         </div>
                     </div>
