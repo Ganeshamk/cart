@@ -42,21 +42,60 @@ function App() {
   });
 
   const [products, setProducts] = useReducer(ProductsReducer, ProductService.getProducts());
-  const [searcProducts, setSearcProducts] = useReducer(ProductsReducer, []);
+  const [searchProducts, setSearcProducts] = useReducer(ProductsReducer, []);
   const [categories, setCategories] = useReducer(CategoriesReducer, []);
   const [searchText, setSearchText] = useReducer(SearchReducer, '');
+  const [sort, setSort] = useReducer(SearchReducer, '');
+
   const [categoriesData, setCategoriesData] = useReducer(CategoriesDataReducer, filterdCategories);
 
   useEffect(() => {
+    console.log(sort);
     searchHandler(searchText || categories.length > 0 ? 'FILTERED_PRODUCTS' : 'ALL_PRODUCTS');
-  }, [searchText, products, categories]);
+  }, [searchText, products, categories, sort]);
 
   const searchHandler = (condition: any) => {
     switch (condition) {
-      case 'ALL_PRODUCTS': setSearcProducts(products);
+      case 'ALL_PRODUCTS': setSearcProducts(products.sort((a: any, b: any) => {
+        if (sort) {
+          if (a['name'] < b['name']) {
+            return -1;
+          } else if (a['name'] > b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else {
+          if (a['name'] > b['name']) {
+            return -1;
+          } else if (a['name'] < b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      }));
         break;
 
-      case 'FILTERED_PRODUCTS': setSearcProducts(products.filter((product: any) => {
+      case 'FILTERED_PRODUCTS': setSearcProducts(products.sort((a: any, b: any) => {
+        if (sort) {
+          if (a['name'] < b['name']) {
+            return -1;
+          } else if (a['name'] > b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else {
+          if (a['name'] > b['name']) {
+            return -1;
+          } else if (a['name'] < b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      }).filter((product: any) => {
         if (categories && categories.length > 0 && categories.findIndex((item: any) => {
           return item.name === product.category;
         }) < 0) {
@@ -80,11 +119,11 @@ function App() {
             <React.Fragment>
               <div className="content">
                 <Route exact path="/">
-                  <Products categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searcProducts={searcProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
+                  <Products sort={sort} setSort={setSort} categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searchProducts={searchProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
                 </Route>
 
                 <Route path="/products">
-                  <Products categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searcProducts={searcProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
+                  <Products sort={sort} setSort={setSort} categoriesData={categoriesData} setCategoriesData={setCategoriesData} categories={categories} setCategories={setCategories} searchProducts={searchProducts} products={products} setProducts={setProducts} searchText={searchText} setSearchText={setSearchText} />
                 </Route>
 
                 <Route path="/product-details/:id">
