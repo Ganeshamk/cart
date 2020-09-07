@@ -50,7 +50,6 @@ function App() {
   const [categoriesData, setCategoriesData] = useReducer(CategoriesDataReducer, filterdCategories);
 
   useEffect(() => {
-    console.log(sort);
     searchHandler(searchText || categories.length > 0 ? 'FILTERED_PRODUCTS' : 'ALL_PRODUCTS');
   }, [searchText, products, categories, sort]);
 
