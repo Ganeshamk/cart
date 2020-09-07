@@ -57,7 +57,7 @@ function App() {
         break;
 
       case 'FILTERED_PRODUCTS': setSearcProducts(products.filter((product: any) => {
-        if (categories && categories.findIndex((item: any) => {
+        if (categories && categories.length > 0 && categories.findIndex((item: any) => {
           return item.name === product.category;
         }) < 0) {
           return;
