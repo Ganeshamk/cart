@@ -23,6 +23,10 @@ function App() {
     return searchText;
   });
 
+  const SortReducer = ((state: any, sortText: any) => {
+    return sortText;
+  });
+
   const CategoriesReducer = ((state: any, categories: any) => {
     return categories;
   });
@@ -45,54 +49,55 @@ function App() {
   const [searchProducts, setSearcProducts] = useReducer(ProductsReducer, []);
   const [categories, setCategories] = useReducer(CategoriesReducer, []);
   const [searchText, setSearchText] = useReducer(SearchReducer, '');
-  const [sort, setSort] = useReducer(SearchReducer, '');
+  const [sort, setSort] = useReducer(SortReducer, '');
   const [categoriesData, setCategoriesData] = useReducer(CategoriesDataReducer, filterdCategories);
 
   useEffect(() => {
+    const sortProducts = (data: any) => {
+      return data.sort((a: any, b: any) => {
+        if (sort === 'asc') {
+          if (a['name'] < b['name']) {
+            return -1;
+          } else if (a['name'] > b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else if (sort === 'desc') {
+          if (a['name'] > b['name']) {
+            return -1;
+          } else if (a['name'] < b['name']) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+        return 0;
+      });
+    };
+
+    const searchHandler = (condition: any) => {
+      switch (condition) {
+        case 'ALL_PRODUCTS': setSearcProducts(sortProducts(products));
+          break;
+
+        case 'FILTERED_PRODUCTS': setSearcProducts(sortProducts(products).filter((product: any) => {
+          if (categories && categories.length > 0 && categories.findIndex((item: any) => {
+            return item.name === product.category;
+          }) < 0) {
+            return '';
+          }
+          return product.name.toLowerCase().includes(searchText.toLowerCase());
+        }));
+          break;
+
+        default: setSearcProducts(products);
+          break;
+      };
+    };
+
     searchHandler(searchText || categories.length > 0 || sort ? 'FILTERED_PRODUCTS' : 'ALL_PRODUCTS');
   }, [searchText, products, categories, sort]);
-
-  const sortProducts = (data: any) => {
-    return data.sort((a: any, b: any) => {
-      if (sort === 'asc') {
-        if (a['name'] < b['name']) {
-          return -1;
-        } else if (a['name'] > b['name']) {
-          return 1;
-        } else {
-          return 0;
-        }
-      } else if (sort === 'desc') {
-        if (a['name'] > b['name']) {
-          return -1;
-        } else if (a['name'] < b['name']) {
-          return 1;
-        } else {
-          return 0;
-        }
-      }
-    });
-  };
-
-  const searchHandler = (condition: any) => {
-    switch (condition) {
-      case 'ALL_PRODUCTS': setSearcProducts(sortProducts(products));
-        break;
-
-      case 'FILTERED_PRODUCTS': setSearcProducts(sortProducts(products).filter((product: any) => {
-        if (categories && categories.length > 0 && categories.findIndex((item: any) => {
-          return item.name === product.category;
-        }) < 0) {
-          return;
-        }
-        return product.name.toLowerCase().includes(searchText.toLowerCase());
-      }));
-        break;
-
-      default: setSearcProducts(products);
-        break;
-    };
-  };
 
   return (
     <>

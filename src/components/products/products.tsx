@@ -5,6 +5,7 @@ import { Form, FormControl, Accordion, Card, Button } from 'react-bootstrap';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import Slider from './slider/slider';
 
 const Products = ({ sort, setSort, categoriesData, setCategoriesData, setCategories, searchProducts, products, setProducts, searchText, setSearchText }: any) => {
 
@@ -95,6 +96,10 @@ const Products = ({ sort, setSort, categoriesData, setCategoriesData, setCategor
                         <label className="col-12 text-center">No Data Found</label>
                     </div>
             }
+            <div className="col-12 p-2 m-0">
+                <label className="col-12 p-2 m-0 text-primary text-center products-title"><strong>Top Trending Products</strong></label>
+                <Slider products={products} setProducts={setProducts} />
+            </div>
         </>
     );
 };

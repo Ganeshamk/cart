@@ -19,7 +19,9 @@ const ProductService = {
 
     removeCart: (setProducts: any, products: any, product: any) => {
         setProducts(products.map((item: any) => {
-            if (item.productId === product.productId) {
+            if (!product) {
+                return { ...item, quantity: 0 };
+            } else if (item.productId === product.productId) {
                 return { ...item, quantity: 0 };
             }
             return item;

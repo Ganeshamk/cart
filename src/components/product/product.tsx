@@ -6,16 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ProductService from '../services/data.services';
 import { Link } from "react-router-dom";
 
-const Product = ({ product, addToCart, quantityChange }: any) => {
+const Product = ({ product, products, setProducts }: any) => {
 
+    const addToCart = () => {
+        ProductService.addToCart(setProducts, products, product);
+    };
 
-    // const addToCart = () => {
-    //     ProductService.addToCart(setProducts, products, product);
-    // };
-
-    // const quantityChange = (type: any) => {
-    //     ProductService.quantityChange(type, setProducts, products, product);
-    // };
+    const quantityChange = (type: any) => {
+        ProductService.quantityChange(type, setProducts, products, product);
+    };
 
     return (
         <>
@@ -39,11 +38,11 @@ const Product = ({ product, addToCart, quantityChange }: any) => {
                     {
                         product?.quantity > 0 ?
                             <div className="product-qty text-right">
-                                <button className="qty-btn qty-dec" onClick={() => quantityChange('dec', product)}>
+                                <button className="qty-btn qty-dec" onClick={() => quantityChange('dec')}>
                                     <FontAwesomeIcon icon={faMinus} />
                                 </button >
                                 <span className="product-quantity" >{product?.quantity}</span>
-                                <button className="qty-btn qty-inc" onClick={() => quantityChange('inc', product)}>
+                                <button className="qty-btn qty-inc" onClick={() => quantityChange('inc')}>
                                     <FontAwesomeIcon icon={faPlus} />
                                 </button >
                             </div > :

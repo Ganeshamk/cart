@@ -37,7 +37,13 @@ const Cart = ({ products, setProducts }: any) => {
             <div className="col-12 col-sm-11 col-md-10 col-lg-8 col-xl-8 mx-auto mt-5 mb-5">
                 {cartData && cartData.length > 0 ?
                     <div className="card" >
-                        <div className="card-header page-title my-cart">My Cart ({cartData.length})</div>
+                        <div className="card-header page-title my-cart">My Cart ({cartData.length})
+                            <div className="float-right p-2 position-relative">
+                                <span className="cart-remove" onClick={() => removeCart('')}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </span>
+                            </div>
+                        </div>
                         <div className="card-body p-0 m-0">
                             {
                                 cartData.map((item: any) => {
